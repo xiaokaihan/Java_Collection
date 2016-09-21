@@ -1,0 +1,61 @@
+Set接口
+	Set是一种不包含重复的元素的Collection，Set最多只能有一个null元素。
+	Noted：必须警惕操纵可变对象，若是一个Set中的可变元素改变了自身状况，导致出现了相同元素，将出现一些问题。
+
+特性：不允许在其中存放的元素是重复的。
+1.
+应用场景：
+Set 可以被用来过滤在其他集合中存放的元素，从而得到一个没有包含重复新的集合。
+使用Set 这个接口来实现前面提到的关于商品种类的存储需求.
+
+2. 常用方法
+Set 接口继承 Collection 接口，而且它不允许集合中存在重复项。所有原始方法都是现成的，没有引入新方法。
+具体的 Set 实现类依赖添加的对象的 equals() 方法来检查等同性。
+各个方法的作用描述：
+    public int size() ：返回set中元素的数目，如果set包含的元素数大于Integer.MAX_VALUE，返回Integer.MAX_VALUE；
+    public boolean isEmpty() ：如果set中不含元素，返回true ；
+    public boolean contains(Object o) ：如果set包含指定元素，返回true ；
+    public Iterator iterator() ： 返回set中元素的迭代器，元素返回没有特定的顺序，除非set提高该保证的某些类的实例 ；
+    public boolean add(Object o) ：如果set中不存在指定元素，则向set加入 ；
+    public boolean remove(Object o) ：如果set中存在指定元素，则从set中删除 ；
+    public boolean removeAll(Collection c) ：如果set包含指定集合，则从set中删除指定集合的所有元素 ；
+    public void clear() ：从set中删除所有元素；
+
+3. 原理分析
+	HashSet： 存放顺序和添加进去时候的顺序没有任何关系（即乱序）；
+	LinkedHashSet：保持元素的添加顺序；
+	TreeSet：排序存放--升序（实现SortedSet）
+
+4. 深入
+	Set的实现原理是基于Map上的
+	Set利用的就是Map中“键”不能重复的特性来实现的。
+	HashSet的巧妙实现：就是建立一个“键值对”，“键”就是我们要存入的对象，“值”则是一个常量。
+	这样可以确保， 我们所需要的存储的信息之是“键”。而“键”在Map中是不能重复的，
+	这就保证了我们存入Set中的所有的元素都不重复。
+
+5.补充
+	SortedSet：
+		是一个接口，它里面的元素一定是有序的。
+		 保证迭代器按照元素递增顺序遍历的集合；
+		 可以按照元素的自然顺序（参见 Comparable）进行排序；
+		 或者按照创建有序集合时提供的 Comparator进行排序
+		Noted：
+			SortedSet是根据 “对象的比较顺序”排序，而不是根据“插入顺序”。
+
+	TreeSet:
+		TreeSet实现set接口，是SortedSet唯一的实现类, 且TreeSet实例由TreeMap实例支持；
+		保证排序后的set按照升序排列元素；
+		根据构造方法不同， 可能会按照元素的自然顺序进行排序，或按照在创建set时所提供的比较器进行排序。
+		排序的实现为基本操作提供了可保证的log(n)时间开销。
+
+		Noted：TreeSet不是同步的，如果多个线程同时访问一个set，而其中至少一个线程修改了该set，那么必须保持外部同步。
+		set 可以使用Collections.synchronizedSet(new TreeSet(...))进行同步。
+		此操作最好在创建之前进行，以防止set的意外非同步访问。
+
+		noted1:	允许 null 元素.
+		noted2: 实现不同步，不是线程安全的
+		noted3: TreeSet实例将使用其compareTo方法执行所有的键比较，认为两个对象的键相等就表示它们两个对象是相等的。这违背的set的常规规定。
+		noted4: 此类的iterator方法返回的迭代器是快速失败 的：在创建迭代器之后，如果对集合进行修改，除非通过迭代器自身的 remove 方法，否则在任何时间以任何方式对其进行修改，Iterator 都将抛出 ConcurrentModificationException。
+		noted5: iterator()返回的迭代器，里面的元素是以升序排序的.
+		noted6: 当试图添加一个重复元素到TreeSet时，新元素并不会把旧元素替换掉，而只是新元素不会添加到TreeSet（不会抛异常。）
+		noted7: TreeSet用了一种叫红黑树的数据结构【red-black tree data structure】来为元素排序.

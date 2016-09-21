@@ -1,0 +1,58 @@
+├List
+│├LinkedList
+│├ArrayList
+│└Vector
+│　└Stack
+
+List: 　List是 "有序" 的Collection，应用此接口可以正确的把握每个元素插入的位置。
+
+1. List中可以添加任何对象， 包括自己定义的新的类
+2. List是一个接口，不能实例化，需要实例化一个ArrayList或者LinkedList
+3. 使用add方法，就可以进行添加元素了
+4. 取值时，get(index)， 取出来的值都是Object， 使用时需要类型转换！！！
+
+1. add(int index, Object obj)方法和set(int index, Object obj)方法的区别
+	前者是向指定索引位置添加对象，而后者是修改指定索引位置的对象
+
+2．indexOf(Object obj)方法和lastIndexOf(Object obj)方法的区别
+	前者是获得指定对象的最小的索引位置，而后者是获得指定对象的最大的索引位置，
+	前提条件是指定的对象在List集合中具有重复的对象；
+	否则如果在List集合中有且仅有一个指定的对象，则通过这两个方法获得的索引位置是相同的
+
+3．subList(int fromIndex, int toIndex)方法
+	截取现有List集合中的部分对象生成新的List集合时，新生成的集合中包含起始索引位置代表的对象，但是不包含终止索引位置代表的对象
+
+4. 如何使用迭代器Iterator?
+	如果你希望遍历一个集合中的元素，显示集合中的每个元素，
+	最简单的方法是才用一个迭代器，它是一个对象，实现了Iterator接口和ListIterator接口，
+	迭代器，使你能够通过循环来得到或删除集合的元素， ListIterator继承了Iterator，以允许双向遍历列表和修改元素
+
+
+ArrayList、LinkedList、Vector以及Stack的区别:
+
+1. ArrayList:
+	ArrayList实现了可变大小的数组，它容许所有的元素，包含null。  ArrayList没有实现同步。
+	size, isEmpty, get, set方法运行时间为常数o(1)， 而add方法时间开销为o(n).
+	每个ArrayList都有一个容量，即用于存储元素的数组的大小。
+	当须要插入多量元素时，在插入前可以调用ensureCapacity办法来增长ArrayList的容量以进步插入效力。
+2. LinkedList
+	LinkedList实现了List接口，容许null元素。此外LinkedList供给额外的get，remove方法操纵LinkedList的首部或尾部。
+	这些操纵使得LinkedList可被用作栈（stack）、队列（queue）或双向队列（deque）；
+	!!!LinkedList没有实现同步， 若是多个线程同时操作一个list，则list本身必须实现同步，一种办法是在创建list时实现一个同步的list：
+	List list = Collections.synchronizedList(new LinkedList(...));
+3. Vector
+	Vector类似ArrayList，而Vector实现了同步。由Vector创建的Iterator和ArrayList创建的是同一接口，
+	因为Vectory是同步的，当一个Iterator被创建并且被应用，另一个线程改变Vector的状况时，会抛出ConcurrentModificationException异常，
+	所以必须捕获该异常。
+4. Stack（栈）
+	Stack继承自Vector，实现一个先进后出的栈。 Stack提供五个额外的方法，使得Vector可以被当做栈应用，入栈和出栈的push和pop方法，
+	还有peek方法获得栈顶元素，empty方法判断栈是否为空，search方法检测一个元素在栈中的位置。
+	Stack刚创建后是空栈。
+
+Note：
+
+查询：ArrayList快（底层数据结构是数组）
+增删：LinkedList快（底层数据结构式链表）
+遍历：LinkedList快（底层是链表，每个节点是一个对象，对象与对象间用引用连接，遍历时只需next = next.next实现引用的向后移动。
+而Java里ArrayList存的是对象数组，遍历时要使引用向后移动，就不是简单把引用的值加一就能实现了，可能要算出下一个对象的引用然后再赋给当前引用。
+所以集合的遍历还是LinkedList快。如果是遍历基本类型的数组，应该是数组快）

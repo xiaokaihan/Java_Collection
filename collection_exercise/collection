@@ -1,0 +1,58 @@
+资源链接： http://edu.21cn.com/linux/g_188_650560-1.htm
+
+Collection
+├List
+│├LinkedList
+│├ArrayList
+│└Vector
+│　└Stack
+└Set
+
+Map
+├Hashtable
+├HashMap
+└WeakHashMap
+
+1. Iterator与ListIterator的区别
+	a. Iterator是ListIterator的父接口
+	b. Iterator是单列集合公共取出容器中元素的方式:
+		对List、Set都通用。
+		ListIterator是List集合的特有的取出元素的方式。
+	c. Iterator中具备的功能只有 hasNext(), next(),remove().
+		而ListIterator中具备对被遍历的元素进行增删查改的方法， 可以对元素逆向遍历。
+		!!!因为ListIterator遍历的元素所在的容器都有索引。
+
+2. 固定长度的List
+	操作数组的工具类ArrayList，它提供了asList()方法，可以把一个数组或者指定个数的对象转换成一个List集合，
+	这个集合既不是ArrayList实现类的实例，也不是Vector的实例， 而是Arrays内部类ArrayList的实例，
+	所以，Arrays.ArrayList是一个固定长度集合，此集合只能遍历，不能增加和删除元素。
+
+3. Collections同步方法
+	Collections.synchronizedList(list);
+
+4. WeakHashMap:
+	是一种改进的HashMap，它对Key实现“弱引用”，若是key不再被外部所引用，那么该key可以被GC回收。
+
+总结：
+	a. 涉及到栈，队列等操纵，应当考虑List，须要快速插入，删除元素，应当应用LinkedList，若是须要快速随机接见元素，应当应用ArrayList；
+	b. 单线程景象中，或者接见仅仅在一个线程中进行，推敲非同步的类，其效力较高，若是多个线程可能同时操纵一个类，应当应用同步的类；
+	c. 重视对哈希表的操纵，作为key的对象要正确复写equals和hashCode办法；
+	d. 对于TreeMap，作为key的对象要正确实现Comparable接口；
+
+同步性：
+	Vector是同步的，而ArrayList则是异步的，所以ArrayList中的对象并不是线程安全的。
+
+数据增长：
+	从内部实现机制来讲ArrayList和Vector都是应用数组（Array），若是元素的数量超出了内部数组的长度，它们都需要扩大内部数组的长度，
+	Vector缺省情况下会主动增长原来一倍的数组长度； 而ArrayList增长原来的50%的长度。
+
+应用模式:
+	// ...
+	使用一个简单的数组来代替Vector或ArrayList，尤其对于执行效率要求高的程序。
+	因为使用数组（Array）避免了同步、额外的方法调用和不必要的重新分配空间的操作。
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+Map接口：
+	Noted：Map没有实现Collection接口，提供了Key到value的映射；
+	Map接口提供了三种collection试图，允许以键集、值集或键-值映射关系集的形式来查看某个映射的内容；
+
+Map实现类：
+
+1. HashMap类：
+	使用哈希表（hash Table）实现，在key和value之中，都是无序的。
+	Noted：如果key是自定义的对象，则必须在该对象内重写覆盖hashCode()和equals()方法
+	如果HashMap中的key使用的是自定义的类对象，那么需要遵守equals()与hashCode()规范.
+2. TreeMap类：
+	基于红黑树（red-black tree）数据结构实现，按key排序
+
+3. LinkedHashMap：
+	LinkedHashMap 是 HashMap 的子类. 所以继承了所有 HashMap 的特性,另外, 链表保持了插入的顺序.
+	保持插入顺序
+
+4. HashTable类：
+	与hashMap实现方式一样，单HashTable属于同步（synchronized）的,即线程安全。
+
+
+Noted：如果代码是线程安全的，那么应该使用HashMap，因为HashTable的同步是有一定量的运行代价的；
+	且使用ConCurrentHashMap也比HashTable更有效率!!!
